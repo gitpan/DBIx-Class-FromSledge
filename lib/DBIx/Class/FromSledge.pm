@@ -4,13 +4,14 @@ use warnings;
 use base 'DBIx::Class';
 use Carp::Clan qw/^DBIx::Class/;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub create_from_sledge {
-    my ($class, $rs, $page, $args) = @_;
+    my ($self, $model, $page, $args) = @_;
     croak "error detected at validator" if $page->valid->is_error;
 
     my $cols = $args || {};
+    my $rs = $self->resultset($model);
 
     for my $col ($rs->result_source->columns) {
         unless ($cols->{$col}) {
@@ -104,7 +105,7 @@ DBIx::Class::FromSledge - Update or Insert DBIx::Class data using from Sledge
     }
     sub dispatch_create {
         my $self = shift;
-        $self->model->create_from_sledge($self->model('User'),$self,
+        $self->model->create_from_sledge('User',$self,
             {
                 service_id => $self->service->id,
             }
