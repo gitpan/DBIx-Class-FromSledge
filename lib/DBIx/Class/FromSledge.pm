@@ -4,7 +4,7 @@ use warnings;
 use base 'DBIx::Class';
 use Carp::Clan qw/^DBIx::Class/;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub create_from_sledge {
     my ($self, $model, $page, $args) = @_;
@@ -92,7 +92,7 @@ DBIx::Class::FromSledge - Update or Insert DBIx::Class data using from Sledge
     
     package Test::DB::User;
     use base 'DBIx::Class';
-    __PACKAGE__->>load_components(qw/
+    __PACKAGE__->load_components(qw/
         FromSledge
         PK::Auto
         Core
